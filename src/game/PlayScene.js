@@ -159,8 +159,14 @@ export class PlayScene extends Scene {
     createStarLoop.destroy();
     createBombLoop.destroy();
     this.physics.pause();
-    this.scene.start('ScoreScene', {score: this.score});
+    const gameEndEvent = new CustomEvent("gameEnded", {
+      detail: { score: this.score }
+   });
+     
+   window.dispatchEvent(gameEndEvent);
 
+   this.scene.stop('PlayScene')
+   this.scene.start('ScoreScene', {score: this.score});
   }, null, this);
   
   }
