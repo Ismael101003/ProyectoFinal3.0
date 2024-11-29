@@ -92,6 +92,7 @@ export class PlayScene extends Scene {
 
    const createStar = () => {
     const x = Math.random() * this.screenWidth;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const star = this.stars.create(x, 0, 'star');
    }
 
@@ -159,14 +160,19 @@ export class PlayScene extends Scene {
     createStarLoop.destroy();
     createBombLoop.destroy();
     this.physics.pause();
-    const gameEndEvent = new CustomEvent("gameEnded", {
-      detail: { score: this.score }
-   });
-     
-   window.dispatchEvent(gameEndEvent);
 
-   this.scene.stop('PlayScene')
-   this.scene.start('ScoreScene', {score: this.score});
+    // When the game ends, dispatch the event with the score and rating
+    const gameEndEvent = new CustomEvent("gameEnded", {
+       detail: { score: this.score }
+    });
+      
+    window.dispatchEvent(gameEndEvent);
+
+    // stops Play Scene and starts Score Scene
+
+    this.scene.stop('PlayScene')
+    this.scene.start('ScoreScene', {score: this.score});
+
   }, null, this);
   
   }
