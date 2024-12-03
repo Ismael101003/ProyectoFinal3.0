@@ -92,8 +92,10 @@ export class PlayScene extends Scene {
 
    const createStar = () => {
     const x = Math.random() * this.screenWidth;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    
     const star = this.stars.create(x, 0, 'star');
+  
+    star.setVelocity(0, 100);
    }
 
    const createStarLoop = this.time.addEvent({
@@ -129,7 +131,7 @@ export class PlayScene extends Scene {
     this.physics.add.collider(this.stars, this.platform, function(object1, object2) {
       const star = (object1.key === 'star') ? object1 : object2;
       star.destroy();
-  });
+    });
 
     this.physics.add.collider(this.bombs, this.platform, function(object1, object2) {
       const bomb = (object1.key === 'bomb') ? object1 : object2;
